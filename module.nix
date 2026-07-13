@@ -18,7 +18,7 @@ in{
 		url = lib.mkOption {type = lib.types.str;
 				    description = "The hostname on which this service listens";};
 		sslCertificate = lib.mkOption { type = lib.types.str; };
-		sslCertificateKey = lib.mkOption {type = lib.type.str; };
+		sslCertificateKey = lib.mkOption {type = lib.types.str; };
 	};
 
 	config = lib.mkIf cfg.enable {
@@ -27,8 +27,8 @@ in{
 			wantedBy = ["multi-user.target"];
 			serviceConfig = {
 				Environment = "TOKEN_DIR=${cfg.tokenDir}";
-				ExecStart = "${cfg.package.default}";
-				DynamicUser = true;
+				ExecStart = "${cfg.package}/bin/secrets-provisioner";
+				#DynamicUser = true;
 				StateDirectory = "secrets-provisioner";
 				Restart = "on-failure";
 			};
