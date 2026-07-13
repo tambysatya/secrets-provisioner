@@ -18,6 +18,7 @@
 					fastapi uvicorn
 				];
 			};
-		};
+		     nixosModules.${system}.default = import ./module.nix;
+		    };
 
 }
