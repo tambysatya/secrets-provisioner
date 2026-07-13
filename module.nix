@@ -17,8 +17,8 @@ in{
 		
 		url = lib.mkOption {type = lib.types.str;
 				    description = "The hostname on which this service listens";};
-		sslCert = lib.mkOption { type = lib.types.str; };
-		sslKey = lib.mkOption {type = lib.type.str; };
+		sslCertificate = lib.mkOption { type = lib.types.str; };
+		sslCertificateKey = lib.mkOption {type = lib.type.str; };
 	};
 
 	config = lib.mkIf cfg.enable {
@@ -32,6 +32,27 @@ in{
 				StateDirectory = "secrets-provisioner";
 				Restart = "on-failure";
 			};
+		};
+		services.nginx = {
+			enable = true;	
+			virtualHosts."${cfg.url}" = {
+				sslCertificate = cfg.sslCertificate;
+				sslCertificateKey = cfg.sslCertificateKey;
+				forceSSL = true;
+
+				locations."/" = {
+					proxyPass = "http://localhost:8080";
+					extraConfig = ''
+						proxy_set_header Host $host;
+						proxy_set_header X-Real-IP $remote_addr;
+						proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+						proxy_set_header X-Forwarded-Proto $scheme;
+					'';
+				};
+
+			};
+
+			
 		};
 	};
 }
