@@ -3,7 +3,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import Response
 import os
 
-TOKENS = Path(os.environ["TOKEN_DIR"])
+TOKENS = Path(os.environ.get("TOKEN_DIR", "./tokens"))
 
 app = FastAPI()
 
