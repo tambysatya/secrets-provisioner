@@ -3,7 +3,7 @@ import uvicorn
 
 def main():
     uvicorn.run(
-        "server.core:app",
+        "secrets_provisioner.core:app",
         host = "0.0.0.0",
         port=8080
         )

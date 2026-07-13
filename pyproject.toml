@@ -5,12 +5,17 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "fastapi>=0.139.0",
-    "uvicorn>=0.51.0",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.20",
 ]
 
 [tool.uv]
 package=true
 
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
 [project.scripts]
-secrets-provisioner = "server.main:main"
+secrets-provisioner = "secrets_provisioner.main:main"
