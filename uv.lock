@@ -169,8 +169,8 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "fastapi", specifier = ">=0.139.0" },
-    { name = "uvicorn", specifier = ">=0.51.0" },
+    { name = "fastapi", specifier = ">=0.100.0" },
+    { name = "uvicorn", specifier = ">=0.20" },
 ]
 
 [[package]]
