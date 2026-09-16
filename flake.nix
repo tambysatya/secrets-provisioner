@@ -5,7 +5,9 @@
 	outputs = {self, nixpkgs}:
 		let system ="x86_64-linux";
 		    pkgs = import nixpkgs {inherit system;};
-		in { packages.${system}.default = 
+            lib = nixpkgs.lib;
+		in {
+            packages.${system}.default = 
 			pkgs.python3Packages.buildPythonApplication {
 				pname = "secrets-provisioner";
 				version = "0.1.0";
@@ -18,7 +20,12 @@
 					fastapi uvicorn
 				];
 			};
-		     nixosModules.${system}.default = import ./module.nix;
-		    };
+		     nixosModules.${system}.default = lib.evalModules {
+                    modules = [import ./module.nix];
+                };
+             hydraJobs = {
+                inherit (self) packages;
+             };
+        };
 
 }
