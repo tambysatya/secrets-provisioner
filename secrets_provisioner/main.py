@@ -31,7 +31,7 @@ async def run_server():
 
     if args.ssl_ca != None:
         config.ca_certs = args.ssl_ca
-        config.very_mode = ssl.CERT_REQUIRED
+        config.verify_mode = ssl.CERT_REQUIRED
 
     await serve (app, config)
 
