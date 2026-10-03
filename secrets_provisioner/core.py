@@ -37,8 +37,9 @@ async def whoami(request: Request):
     if dns == []:
         raise HTTPException(401, "No san in the certificate")
     name = dns[0][0].split(".")[0]
+    name = name + ".tar.gz"
 
-    path = (TOKENS / name) + ".tar.gz"
+    path = TOKENS / name
 
     if not path.is_file():
         raise HTTPException(404)
