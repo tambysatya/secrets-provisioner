@@ -27,7 +27,7 @@ async def whoami(request: Request):
     if not chain:
         raise HTTPException(401, "No client certificate")
 
-    cert = x509.load_pem_x509_certificate(chain[0])
+    cert = x509.load_pem_x509_certificate(chain[0].encode())
 
     san = cert.extensions.get_extension_for_oid(
         ExtensionOID.SUBJECT_ALTERNATIVE_NAME
