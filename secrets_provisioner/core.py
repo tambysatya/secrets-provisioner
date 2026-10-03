@@ -40,6 +40,7 @@ async def whoami(request: Request):
 
     path = TOKENS / name
 
+    print (path)
     if not path.is_file():
         raise HTTPException(404)
 
