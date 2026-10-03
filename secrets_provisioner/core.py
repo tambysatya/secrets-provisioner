@@ -37,10 +37,23 @@ async def whoami(request: Request):
     if dns == []:
         raise HTTPException(401, "No san in the certificate")
     name = dns[0][0].split(".")[0]
-    return {
-        "dns": name,
-        "uris": [str(uri) for uri in san.get_values_for_type(x509.UniformResourceIdentifier)]
-    }
+
+    path = TOKENS / name
+
+    if not path.is_file():
+        raise HTTPException(404)
+
+    data = path.read_bytes()
+    path.unlink()
+
+
+
+
+    return Response(data, media_type="application/json")
+   # return {
+   #     "dns": name,
+   #     "uris": [str(uri) for uri in san.get_values_for_type(x509.UniformResourceIdentifier)]
+   # }
 
 @app.get("/{token}")
 def bootstrap(token: str):
