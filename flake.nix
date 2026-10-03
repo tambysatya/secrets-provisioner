@@ -17,6 +17,10 @@
                     dependencies = with pkgs.python3Packages; [
                         fastapi hypercorn cryptography 
                     ];
+
+                    meta = {
+                        mainProgram = "secrets-provisioner";
+                    };
                 };
 		in {
             packages.${system}.default = pkg;
