@@ -17,7 +17,7 @@ async def debug(request: Request):
         "scope_keys": list(request.scope.keys()),
     }
 
-@app.get("/whoami")
+@app.get("/mtls")
 async def whoami(request: Request):
     tls = request.scope.get("extensions", {}).get("tls")
     if not tls:
