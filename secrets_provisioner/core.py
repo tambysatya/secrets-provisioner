@@ -10,6 +10,12 @@ app = FastAPI()
 TOKENS = Path(os.environ.get("TOKEN_DIR", "./tokens"))
 
 
+@app.get("/debug")
+async def debug(request: Request):
+    return {
+        "extensions": request.scope.get("extensions", {}),
+        "scope_keys": list(request.scope.keys()),
+    }
 
 @app.get("/whoami")
 async def whoami(request: Request):
