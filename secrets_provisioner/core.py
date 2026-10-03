@@ -38,7 +38,7 @@ async def whoami(request: Request):
         raise HTTPException(401, "No san in the certificate")
     name = dns[0].split(".")[0]
     return {
-        "dns": dns, #name,
+        "dns": name,
         "uris": [str(uri) for uri in san.get_values_for_type(x509.UniformResourceIdentifier)]
     }
 
