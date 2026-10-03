@@ -1,6 +1,6 @@
-import asyncio
-from hypercorn.asyncio import serve
-from hypercorn.config import Config
+import anyio
+from anycorn import serve
+from anycorn.config import Config
 from pathlib import Path
 import os
 import argparse
@@ -10,7 +10,7 @@ from .core import app
 
 LISTEN = Path(os.environ.get("LISTEN_ADDR", "0.0.0.0:8000"))
 
-def main():
+async def run_server():
     parser = argparse.ArgumentParser (
             prog = "A simple secret provisionner",
             description = "Opens a HTTPS server that reads a directory containing single-usage tokens and distribute it"
@@ -33,5 +33,9 @@ def main():
         config.ca_certs = args.ssl_ca
         config.very_mode = ssl.CERT_REQUIRED
 
-    asyncio.run(serve(app, config))
+    await serve (app, config)
+
+def main():
+    anyio.run(run_server)
+
 
