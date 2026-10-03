@@ -33,8 +33,12 @@ async def whoami(request: Request):
         ExtensionOID.SUBJECT_ALTERNATIVE_NAME
     ).value
 
+    dns = san.get_values_for_type(x509.DNSName),
+    if dns == []:
+        raise HTTPException(401, "No san in the certificate")
+    name = dns[0].split("."}[0]
     return {
-        "dns": san.get_values_for_type(x509.DNSName),
+        "dns": name
         "uris": [str(uri) for uri in san.get_values_for_type(x509.UniformResourceIdentifier)]
     }
 
