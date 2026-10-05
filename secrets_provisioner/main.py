@@ -25,6 +25,9 @@ async def run_server():
     config = Config ()
 
     config.bind = [args.listen_on + ":" + args.port]
+    config.accesslog = "-"
+    config.errorlog = "-"
+
 
     config.certfile = args.ssl_cert
     config.keyfile = args.ssl_key

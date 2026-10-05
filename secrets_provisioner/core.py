@@ -18,7 +18,7 @@ async def debug(request: Request):
     }
 
 @app.get("/mtls")
-async def whoami(request: Request):
+async def mtls(request: Request):
     tls = request.scope.get("extensions", {}).get("tls")
     if not tls:
         raise HTTPException(500, "TLS extension unavailable")
