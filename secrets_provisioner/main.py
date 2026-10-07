@@ -22,6 +22,9 @@ async def run_server():
     parser.add_argument ('--ssl_ca', help ='path to the ssl authority (mandatory for mTLS)', required=False)
     args = parser.parse_args()
 
+
+    print (f"ssl_cert={args.ssl_cert} ssl_key={args.ssl_key} ssl_ca={args.ssl_ca}")
+
     config = Config ()
 
     config.bind = [args.listen_on + ":" + args.port]
